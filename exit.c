@@ -1,5 +1,5 @@
 /*
-gcc -fno-builtin -nostdlib -std=c17 -c exit.c
+gcc -ffreestanding -std=c17 -c exit.c
 ld -nostdlib -nolibc --entry=entry_point -o exit exit.o syscall_64.o
 */
 

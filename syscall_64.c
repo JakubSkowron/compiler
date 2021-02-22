@@ -1,5 +1,5 @@
 /*
-cc -fno-builtin -nostdlib -std=c17
+cc -ffreestanding
 ld -nostdlib -nolibc --entry=...
 */
 
