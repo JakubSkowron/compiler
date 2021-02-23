@@ -46,7 +46,24 @@ void print_hex(uint64_t x) {
   assert(ret == sizeof(buf), "write failed\n");
 }
 
-void entry_point() {
+__attribute__((noreturn)) void c_entry_point(char** argv) {
+  while(*argv) {
+    print(*argv++);
+    print("\t");
+  }
+  print("\n");
+
+  uint64_t* rsp;
+  uint64_t* rbp;
+  __asm__(
+    "movq %%rsp, %[rsp]\n"
+    "movq %%rbp, %[rbp]"
+    : [rsp] "=g" (rsp), [rbp] "=g" (rbp) : /* no input */: /* no clobber */
+  );
+  print("rsp, rbp:\n");
+  print_hex((uint64_t)rsp);
+  print_hex((uint64_t)rbp);
+
   const char* txt = "Hello, World!\n";
   syscall_arg3(SYSCALL_WRITE, SYS_STDOUT, (uint64_t)txt, strlen(txt));
   print("Testing syscall_brk\n");
