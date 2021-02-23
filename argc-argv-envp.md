@@ -16,7 +16,7 @@ envp[1]
 Every value is 64-bit (8 byte long).
 
 For example this below loads value of `argv` to `%rax`
-```as
+```asm
     leaq 8(%rsp), %rax  # argv
 ```
 

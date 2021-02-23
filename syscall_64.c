@@ -8,9 +8,10 @@ ld -nostdlib -nolibc --entry=...
 /*
  * registers used to pass the system call arguments:
  *
- * Arch/ABI  instruction  number  arg1  arg2  arg3  arg4  arg5  arg6  arg7  Ret
- * Ret x86-64    syscall      rax     rdi   rsi   rdx   r10   r8    r9    - rax
- * rdx
+ * instruction  call number  arg1  arg2  arg3  arg4  arg5  arg6
+ * syscall      rax          rdi   rsi   rdx   r10   r8    r9
+ *
+ * return value in rax or rax,rdx (actually, I don't think any syscall uses rdx)
  *
  * [ man 2 syscall ]
  */
