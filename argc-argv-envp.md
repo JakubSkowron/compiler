@@ -1,8 +1,21 @@
-# Program parameters
+# Program parameters and environment
+Program compiled with clang/gcc with `-ffreestanding` option for Linux x86_64.
 
-At program entry point `argc` and `argv` are just above the stack. To be , i.e. in `(%rsp)` and `8(%rsp)`.
+At entry values of `argc`, `*argv`, and `*envp` are just above the stack. The layout is:
+```
+argc     ← %rsp
+argv[0]  ← %rsp + 8
+argv[1]  ← %rsp + 16
+...
+0
+envp[0]
+envp[1]
+...
+0
+```
+Every value is 64-bit (8 byte long).
 
-So this below loads value of `argv` to `%rax`
+For example this below loads value of `argv` to `%rax`
 ```as
     leaq 8(%rsp), %rax  # argv
 ```

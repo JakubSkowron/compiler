@@ -41,3 +41,18 @@ So it implies:
 shortcomings of particular machines, or special needs for some languages.
 For example: no division instruction on ARM, so GCC will emit call to `__aeabi_idiv`.
 Add `-lgcc` in such case.
+
+## Program entry
+
+Note, that C function preambule can modify stack pointer. We loose original `%rsp` if
+compiler chooses to change it.
+If we want to have access to `argc`, `argv`, `envp` in C function we need to save `$rsp`
+and pass it as argument (in register `%rdi`):
+```asm
+movq %rsp, %rdi
+jmp c_entry_point  # jump, no return
+```
+C function header:
+```c
+__attribute__((noreturn)) void c_entry_point(void* entry_stack);
+```

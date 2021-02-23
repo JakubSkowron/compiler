@@ -46,10 +46,20 @@ void print_hex(uint64_t x) {
   assert(ret == sizeof(buf), "write failed\n");
 }
 
-__attribute__((noreturn)) void c_entry_point(char** argv) {
+__attribute__((noreturn)) void c_entry_point(uint64_t *entry_stack) {
+  uint64_t argc = entry_stack[0];
+  const char **argv = (const char **)(entry_stack + 1);
+  const char **envp = argv + argc + 1; // 1 for argv terminating zero
+
   while(*argv) {
     print(*argv++);
     print("\t");
+  }
+  print("\n");
+
+  while (*envp) {
+    print(*envp++);
+    print(";");
   }
   print("\n");
 
