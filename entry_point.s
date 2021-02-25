@@ -16,3 +16,4 @@ entry_point:
 
     andq $~0x0F, %rsp   # allign stack to 16 bytes
     call c_entry_point
+    hlt                 # guard in case the function returns, only kernel can hlt, segfault

@@ -47,17 +47,14 @@ void print_hex(uint64_t x) {
 }
 
 __attribute__((noreturn)) void c_entry_point(uint64_t *entry_stack, void (*finalizer)(void)) {
-  // Save values at first line of function (after preambule)
-  register uint64_t *reg_rsp __asm__("rsp"); // local register variable
-  register uint64_t *reg_rbp __asm__("rbp"); // local register variable
-  __asm__("# dummy, just to make sure local register variables are initialized"
-          : "=r"(reg_rsp), "=r"(reg_rbp)
+  uint64_t *rsp;
+  uint64_t *rbp;
+  __asm__("mov %%rsp, %[rsp]\n"
+          "mov %%rbp, %[rbp]\n"
+          : [rsp] "=g"(rsp), [rbp] "=g"(rbp)
           : /* no input */
           : /* no clobber */
   );
-
-  uint64_t *rsp = reg_rsp; // store in local variable
-  uint64_t *rbp = reg_rbp; // store in local variable
 
   uint64_t argc = entry_stack[0];
   const char **argv = (const char **)(entry_stack + 1);
