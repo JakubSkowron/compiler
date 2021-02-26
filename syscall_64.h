@@ -79,4 +79,8 @@ size_t syscall_write(uint32_t fd, const char* buf, size_t count);
 uint64_t syscall_stat(const char* filename, struct stat* statbuf);
 uint64_t syscall_brk(uint64_t brk);
 
+#define SYS_STDIN  0
+#define SYS_STDOUT 1
+#define SYS_STDERR 2
+
 #endif  // SYSCALL_64_H

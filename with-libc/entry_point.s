@@ -9,7 +9,7 @@ entry_point:
                             # (finalizer for shared libraries)
 
     mov %rsp, %rbp      # save $rsp for later
-    andq $~0x0F, %rsp   # allign stack to 16 bytes
+    andq $~0x0F, %rsp   # align stack to 16 bytes
     mov %rsp, %rdi      # 1st parameter: stack pointer at entry
                         #                (points to argc, *argv, *envp)
     call c_entry_point

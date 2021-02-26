@@ -5,10 +5,6 @@ ld -nostdlib -nolibc --entry=entry_point -o exit exit.o syscall_64.o
 
 #include "syscall_64.h"
 
-#define SYS_STDIN  0
-#define SYS_STDOUT 1
-#define SYS_STDERR 2
-
 size_t strlen(const char* str) {
   const char* p = str;
   while( *p++ );

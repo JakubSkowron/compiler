@@ -30,7 +30,7 @@ Just before `call` stack has to be 16-byte aligned.
 Note: `push` first decrements `%rsp` and then places value at `(%rsp)`, so at entry to function stack is no longer 16-bytes aligned.
 
 At `(%rsp)` is return addres, so if (optionally) function preambule pushes `%rbp`, then `%rsp` is
-alligned to 16 byte boundary.
+aligned to 16 byte boundary.
 
 ## Register Usage
 (Figure 3.4)
