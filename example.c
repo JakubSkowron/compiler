@@ -5,9 +5,10 @@ ld -nostdlib -nolibc --entry=entry_point -o exit exit.o syscall_64.o
 
 #include "syscall_64.h"
 
-size_t strlen(const char* str) {
-  const char* p = str;
-  while( *p++ );
+size_t strlen(const char *str) {
+  const char *p = str;
+  while (*p++)
+    ;
   return p - str;
 }
 
@@ -56,7 +57,7 @@ __attribute__((noreturn)) void c_entry_point(uint64_t *entry_stack, void (*final
   const char **argv = (const char **)(entry_stack + 1);
   const char **envp = argv + argc + 1; // 1 for argv terminating zero
 
-  while(*argv) {
+  while (*argv) {
     print(*argv++);
     print("\t");
   }
@@ -78,7 +79,7 @@ __attribute__((noreturn)) void c_entry_point(uint64_t *entry_stack, void (*final
   print("rbp:\t");
   print_hex((uint64_t)rbp);
 
-  const char* txt = "Hello, World!\n";
+  const char *txt = "Hello, World!\n";
   syscall_arg3(SYSCALL_WRITE, SYS_STDOUT, (uint64_t)txt, strlen(txt));
   print("Testing syscall_brk\n");
   uint64_t mem = syscall_brk(0);
